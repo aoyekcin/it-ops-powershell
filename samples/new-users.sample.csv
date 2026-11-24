@@ -1,0 +1,4 @@
+GivenName,Surname,SamAccountName,Department,Title,OU,Groups
+Elif,Example,eexample,Store Operations,Store Manager,"OU=Store Managers,OU=Users,DC=contoso,DC=com",GG-Store-Managers;GG-VPN-Users
+Can,Sample,csample,IT Operations,IT Support Specialist,"OU=IT,OU=Users,DC=contoso,DC=com",GG-IT-Support;GG-Remote-Tools
+Deniz,Demo,ddemo,Finance,Accountant,"OU=Finance,OU=Users,DC=contoso,DC=com",

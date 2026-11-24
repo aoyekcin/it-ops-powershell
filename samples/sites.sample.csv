@@ -1,0 +1,8 @@
+Site,Host,Port,Role
+Store-001,store001-router.example.local,,Router
+Store-001,store001-pos01.example.local,443,POS register
+Store-001,store001-bo.example.local,3389,Back-office PC
+Store-002,store002-router.example.local,,Router
+Store-002,store002-pos01.example.local,443,POS register
+HQ,pos-backend.example.local,443,POS backend
+HQ,payment-gateway.example.local,443,Payment gateway
