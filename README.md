@@ -2,16 +2,16 @@
 
 [![PowerShell lint](https://github.com/aoyekcin/it-ops-powershell/actions/workflows/lint.yml/badge.svg)](https://github.com/aoyekcin/it-ops-powershell/actions/workflows/lint.yml)
 
-PowerShell scripts for everyday **IT operations** work in Microsoft environments: user onboarding and offboarding, Active Directory hygiene, Microsoft 365 license reviews, Intune device compliance, and multi-site connectivity checks.
+PowerShell scripts for the routine side of IT operations in Microsoft environments: onboarding and offboarding users, cleaning up AD, checking M365 licenses and Intune compliance, and testing connectivity across many sites.
 
-Each script is built for safe, repeatable use:
+Some things I kept the same in every script:
 
-- **Preview first:** scripts that change anything support `-WhatIf` and `-Confirm`
-- **Audit trail:** every run writes a CSV report; offboarding backs up group memberships before removing them
-- **No secrets in code:** passwords are read as `SecureString` and never written to disk
-- **Read-only by default:** reporting scripts do not change anything
+- If it changes something, it supports `-WhatIf` and `-Confirm`, so you can see what would happen first.
+- Every run leaves a CSV report. Offboarding saves the user's groups before removing them.
+- Passwords are read as `SecureString` and never saved to disk.
+- Report scripts only read; they don't change anything.
 
-> Domains, names and hosts in the examples are placeholders (`contoso.com`, `example.local`). Test in a lab or with `-WhatIf` before running against production.
+> Domains and hosts in the examples are placeholders (`contoso.com`, `example.local`). Try things in a lab or with `-WhatIf` before running them in production.
 
 ## Scripts
 
@@ -53,15 +53,15 @@ Every script has full help: `Get-Help .\active-directory\New-ADUserFromCsv.ps1 -
 
 ## Quality checks
 
-A GitHub Actions workflow parses every script and runs [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer) on each push.
+On every push, GitHub Actions checks the syntax of each script and runs [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer).
 
 ## Related
 
-- [IT Operations Runbooks](https://github.com/aoyekcin/it-ops-runbooks): the processes these scripts support (incident, change and problem management)
+- [it-ops-runbooks](https://github.com/aoyekcin/it-ops-runbooks): the incident, change and problem processes these scripts fit into
 
 ## Author
 
-**Aykut Öyekcin** — IT Operations & Platform Support Specialist
+Aykut Öyekcin, IT Operations & Platform Support Specialist
 [LinkedIn](https://www.linkedin.com/in/aykutoyekcin) · [GitHub](https://github.com/aoyekcin)
 
 ## License
