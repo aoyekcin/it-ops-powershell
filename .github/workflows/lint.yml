@@ -1,0 +1,34 @@
+name: PowerShell lint
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  psscriptanalyzer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PSScriptAnalyzer
+        shell: pwsh
+        run: Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+
+      - name: Check syntax and best practices
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem -Path . -Recurse -Filter *.ps1
+          $parseErrors = 0
+          foreach ($file in $files) {
+            $tokens = $null; $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($file.FullName, [ref]$tokens, [ref]$errors) | Out-Null
+            foreach ($e in $errors) {
+              Write-Output "::error file=$($file.FullName),line=$($e.Extent.StartLineNumber)::$($e.Message)"
+              $parseErrors++
+            }
+          }
+          $results = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error, Warning -ExcludeRule PSAvoidUsingWriteHost
+          $results | Format-Table -AutoSize -Property Severity, RuleName, ScriptName, Line, Message
+          if ($parseErrors -gt 0 -or ($results | Where-Object Severity -eq 'Error')) {
+            throw "Found $parseErrors parse error(s) and $(@($results | Where-Object Severity -eq 'Error').Count) analyzer error(s)."
+          }
